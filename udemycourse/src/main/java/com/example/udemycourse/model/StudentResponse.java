@@ -15,7 +15,7 @@ public class StudentResponse {
 	private String lastName;
 	private String email;
 	
-	public StudentResponse (StudentTable student) {
+	public StudentResponse (Student student) {
 		this.id = student.getId();
 		this.firstName = student.getFirstName();
 		this.lastName = student.getLastName();

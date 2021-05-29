@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.udemycourse.model.StudentTable;
+import com.example.udemycourse.model.Student;
 import com.example.udemycourse.model.StudentResponse;
 import com.example.udemycourse.repository.StudentRepository;
 
@@ -18,7 +18,7 @@ public class StudentService {
 	
 	
 	public List<StudentResponse> getAllStudents () {
-		List<StudentTable> studentList = studentRepository.findAll();
+		List<Student> studentList = studentRepository.findAll();
 		
 		List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
 	
@@ -29,10 +29,34 @@ public class StudentService {
 		return studentResponseList;
 	}
 	
-	public StudentTable createStudent (StudentResponse studentResponse) {
-		StudentTable student = new StudentTable(studentResponse);
+	public Student createStudent (StudentResponse studentResponse) {
+		Student student = new Student(studentResponse);
 		
 		student = studentRepository.save(student);
+		return student;
+	}
+
+	public Student updateStudent(StudentResponse student) {
+		
+		Student studentToUpdate = studentRepository.findById(student.getId()).get();
+		
+		if (student.getFirstName() != null && !student.getFirstName().isEmpty()) {
+			studentToUpdate.setFirstName(student.getFirstName());
+			studentToUpdate.setLastName(student.getLastName());
+			studentToUpdate.setEmail(student.getEmail());
+		}
+		
+		studentToUpdate =  studentRepository.save(studentToUpdate);
+		
+		return studentToUpdate;
+	}
+
+	public void deleteStudent(Long id) {
+		studentRepository.deleteById(id);		
+	}
+
+	public Student getStudent(Long id) {
+		Student student = studentRepository.findById(id).get();
 		return student;
 	}
 	

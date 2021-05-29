@@ -14,7 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table (name = "student")
-public class StudentTable {
+public class Student {
 
 	@JsonIgnore // To ignore the JSON field in response
 	@Id
@@ -31,7 +31,7 @@ public class StudentTable {
 	@Column
 	private String email;
 	
-	public StudentTable (StudentResponse student) {
+	public Student (StudentResponse student) {
 		this.firstName = student.getFirstName();
 		this.lastName = student.getLastName();
 		this.email = student.getEmail();
