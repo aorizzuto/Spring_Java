@@ -14,11 +14,11 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table (name = "student")
-public class Student {
+public class StudentTable {
 
 	@JsonIgnore // To ignore the JSON field in response
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@JsonProperty("first_name") // Change field in JSON
@@ -31,8 +31,10 @@ public class Student {
 	@Column
 	private String email;
 	
-	public Student (Student student) {
-		this.id = student.getId();
+	public StudentTable (StudentResponse student) {
+		this.firstName = student.getFirstName();
+		this.lastName = student.getLastName();
+		this.email = student.getEmail();
 	}
 	
 }
