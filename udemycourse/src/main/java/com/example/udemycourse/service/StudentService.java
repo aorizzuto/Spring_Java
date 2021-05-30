@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.udemycourse.model.Student;
@@ -58,6 +60,29 @@ public class StudentService {
 	public Student getStudent(Long id) {
 		Student student = studentRepository.findById(id).get();
 		return student;
+	}
+
+	public List<StudentResponse> getByFirstName(String name) {
+		List<StudentResponse> studentResponseList = new ArrayList<StudentResponse>();
+		List<Student> studentList = studentRepository.findByFirstName(name);
+	
+		studentList.stream().forEach(student -> {
+			studentResponseList.add(new StudentResponse(student));
+		});
+		
+		return studentResponseList;
+	}
+
+	public Student getByFirstLast(String firstname, String lastname) {
+		Student student = studentRepository.findByFirstNameAndLastName(firstname,lastname);
+
+		return student;
+	}
+
+	public List<Student> getAllStudentsWithPagination(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		
+		return studentRepository.findAll(pageable).getContent();
 	}
 	
 	

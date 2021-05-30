@@ -64,4 +64,23 @@ public class Studentcontroller {
 		
 		return null;
 	}
+	
+	@GetMapping("/firstName/{firstName}")
+	public List<StudentResponse> getByFirstName (@PathVariable("firstName") String name) {
+		List<StudentResponse> students = studentService.getByFirstName(name);
+		
+		return students;
+	}
+	
+	@GetMapping
+	public Student getByFirstnameANDLastname (@RequestParam String firstname, @RequestParam String lastname){
+		Student student = studentService.getByFirstLast(firstname, lastname);
+		
+		return student;
+	}
+	
+	@GetMapping("/pag")
+	public List<Student> getAllStudentWithPagination (@RequestParam int pageNo, int pageSize) {
+		return studentService.getAllStudentsWithPagination(pageNo, pageSize);
+	}
 }
