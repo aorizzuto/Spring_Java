@@ -83,4 +83,14 @@ public class Studentcontroller {
 	public List<Student> getAllStudentWithPagination (@RequestParam int pageNo, int pageSize) {
 		return studentService.getAllStudentsWithPagination(pageNo, pageSize);
 	}
+	
+	@GetMapping("/all/sorted")
+	public List<Student> getAllStudentSorted() {
+		return studentService.getAllStudentSorted();
+	}
+	
+	@GetMapping("/all/like/{word}")
+	public List<Student> getAllStudentLike(@PathVariable String word){
+		return studentService.getAllStudentLike(word);
+	}
 }

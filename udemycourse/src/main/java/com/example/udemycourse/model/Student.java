@@ -31,6 +31,13 @@ public class Student {
 	@Column
 	private String email;
 	
+	@Transient	// With transient we tell Spring that this is not a columns from database
+	private String fullname;
+	
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
+	
 	public Student (StudentResponse student) {
 		this.firstName = student.getFirstName();
 		this.lastName = student.getLastName();
